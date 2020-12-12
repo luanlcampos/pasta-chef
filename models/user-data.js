@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 
 //setting the userSchema
 var userSchema = new Schema({
-    "userName": {
+    userName: {
         "type": String,
         "unique": true
     },
-    "password": String,
-    "email": {
+    password: String,
+    email: {
         type: String,
         unique: true
     },
@@ -94,7 +94,7 @@ module.exports.checkUser = (userData) => {
         }).catch((err)=>{
             reject(`Unable to find user: ${userData.email}`);
     })
-}
+})}
 
 // module.exports.testData = () => {
 //     return new Promise ((resolve, reject)=>{

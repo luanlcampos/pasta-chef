@@ -5,7 +5,7 @@ const express = require("express");
 var path = require("path");
 const exphbs = require("express-handlebars");
 var data = require("./models/user-data") //requiring all functions from data-service.js
-//var clientSessions = require("client-sessions");
+var clientSessions = require("client-sessions");
 //var multer = require("multer"); //deal with images
 //var bodyParser = require("body-parser"); //deal with forms
 
@@ -15,6 +15,29 @@ var app = express();
 
 
 app.use(express.static('public')); //set the public dir as static
+
+//setting client-session
+app.use(clientSessions({
+    cookieName: "session",  // cookie name dictates the key name added to the request object
+    secret: "pastachef", //long and unguessable string
+    duration: 2 * 60 * 1000, //2 mintues duration in ms
+    activeDuration: 1000 * 60 //session extension by each request
+}))
+//templates will have access to a session object = {{session.userName}}
+app.use(function(req, res, next) {
+    res.locals.session = req.session;
+    next();
+    });
+
+//helper middleware function to ensureLogin. if user is not logged in, redirect to the login page
+ensureLogin = (req, res, next) => {
+    if(!req.session.user){
+        res.redirect("/login");
+    }
+    else {
+        next();
+    }
+}
 
 //set the app to use handlebars template
 app.engine('.hbs', exphbs({
@@ -50,7 +73,15 @@ app.get("/menu", (req, res) => {
 
 // ** POST ROUTES ** 
 app.post("/login", (req, res)=> {
-    
+    req.body.userAgent = req.get('User-Agent');
+    data.checkUser(req.body)
+    .then((user)=>{
+        req.session.user = {
+            username: user.username,
+            email: user.email,
+            
+        }
+    })
 })
 
 app.post("/register", (req, res)=>{
