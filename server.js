@@ -1,3 +1,6 @@
+//heroku link: https://protected-wildwood-92195.herokuapp.com/ -> git push heroku master
+//github repo: https://github.com/luanlcampos/pasta-chef -> git push origin master
+
 const express = require("express");
 var path = require("path");
 const exphbs = require("express-handlebars");

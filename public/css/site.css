@@ -63,9 +63,14 @@ html body {
     padding-top: 100px;
 }
 
+
 .btn-outline-primary {
     color: white;
     border: solid 1px white;
+}
+
+.list-unstyled li a {
+    color: #FFF;
 }
 
 .btn-outline-primary:hover {
