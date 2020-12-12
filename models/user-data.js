@@ -50,6 +50,52 @@ module.exports.initialize = () => {
 }
 
 
+module.exports.userRegistration = (userData) => {
+    return new Promise ((resolve, reject) => {
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(userData.password, salt, (err, hash) => {
+                if (err) {
+                    reject("There was an error encrypting the password");
+                }
+                else {
+                    userData.password = hash;
+                    userData.admin = false;
+                    let newUser = new Users(userData);
+                    newUser.save()
+                    .then(()=>{
+                        resolve("User added");
+                    })
+                    .catch((err)=>{
+                        if (err.code === 11000) {
+                            reject ("Username already taken");
+                        }
+                        else {
+                            reject(`There was an error creating the user: ${err}`);
+                        }
+                    })
+                }
+            })
+        })
+    })
+}
+
+module.exports.checkUser = (userData) => {
+    return new Promise((resolve, reject)=> {
+        Users.find({email: userData.email})
+        .then((user) =>{
+            bcrypt.compare(userData.password, user[0].password)
+            .then((res)=>{
+                if (res === true) {
+                        resolve(users[0]);
+                }
+            }).catch((err)=>{
+                reject(`Unable to find user: ${userData.email}`);
+            })
+        }).catch((err)=>{
+            reject(`Unable to find user: ${userData.email}`);
+    })
+}
+
 // module.exports.testData = () => {
 //     return new Promise ((resolve, reject)=>{
 //         var testUser = new Users ({

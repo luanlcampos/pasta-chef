@@ -47,6 +47,24 @@ app.get("/menu", (req, res) => {
 })
 
 
+
+// ** POST ROUTES ** 
+app.post("/login", (req, res)=> {
+    
+})
+
+app.post("/register", (req, res)=>{
+    data.userRegistration(req.body)
+    .then(()=>{
+        res.render("home", {successMessage: "User Created"})
+    })
+    .catch((err)=>{
+        res.render("home", {errorMsg: err, email: req.body.email})
+    })
+})
+
+
+
 data.initialize()
     .then(() => {
         app.listen(HTTP_PORT, () => {
