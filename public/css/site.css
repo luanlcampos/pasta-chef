@@ -1,0 +1,165 @@
+/*
+Makeup Tan: #DDAF94
+Blush: #E8CEBF
+Complimentary Green: #266150
+Dark Highlight: #4F4846
+Lightly Off White: #FDF8F5
+https://hookagency.com/website-color-schemes/
+*/
+
+html body {
+    font-family: 'Roboto Slab', serif;
+}
+
+.main-container, .carousel-slides {
+    min-width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.navbar {
+    color: white;
+    font-size: 100%;
+    background-color: #DDAF94;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+    font-size: 150%;
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1.0)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+
+  .custom-toggler.navbar-toggler {
+    border-color: rgb(255, 255, 255);
+  } 
+
+.navbar-brand {
+    padding: 4px 0px;
+    height: 100px;
+    display: block;
+    float: none;
+}
+
+.navbar-nav> li {
+    float: left;
+}
+
+.navbar-brand>img {
+    display: block;
+    max-height: 100%;
+    max-width: 100%;
+    margin: 0;
+}
+
+.h-button {
+    font-size: 150%;
+    padding-left: 0.5px;
+}
+
+.main-container {
+    padding-top: 100px;
+}
+
+.btn-outline-primary {
+    color: white;
+    border: solid 1px white;
+}
+
+.btn-outline-primary:hover {
+    background-color:#266150;
+    border: 1px solid white;
+}
+
+.btn-outline-secondary{
+    background-color:  #266150;
+    color:white;
+    border: 1px solid #266150;
+    font-weight: bold;
+}
+
+.btn-outline-secondary:hover {
+    background-color:  #DDAF94;
+    border: 1px solid white;
+}
+
+.nav-link {
+    color: white;
+}
+
+.navbar-brand{
+    color: white;
+}
+
+.modal-content {
+    background-color:  #FDF8F5;
+}
+
+
+.carousel-item {
+    height: 100vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  body > .container {
+    padding-top: 60px;
+  }
+  .text-center {
+      text-align: center;
+  }
+
+
+  .works-img {
+      border-radius: 50%;
+      max-width: 60%;
+  }
+
+  .container {
+      /* border: 1px solid black; */
+      height: fit-content;
+  }
+
+
+  .meal {
+      background-color: white;
+  }
+
+  .food.img {
+        padding: 5%;
+  }
+  
+  .price {
+      text-align: right;
+      color: green;
+      font-weight: bold;
+      size: 20%;
+  }
+  .food-name {
+      font-size: large;
+      font-weight: bold;
+      margin-bottom: 0px;
+  }
+
+
+  .m_footer {
+    color: white;
+    background-color: #DDAF94;
+  }
+
+
+  .footer-copyright {
+    color: white;
+    background-color:#9a7a67;
+  }
+
+  .logo-footer {
+      max-width: 100px;
+      margin: 10px 10px;
+  }
