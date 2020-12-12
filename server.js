@@ -77,14 +77,19 @@ app.post("/login", (req, res)=> {
     data.checkUser(req.body)
     .then((user)=>{
         req.session.user = {
-            username: user.username,
+            userName: user.userName,
             email: user.email,
-            
+            admin: user.admin
         }
+        res.redirect("/");
+
+    }).catch((err)=>{
+        res.render("/", {errorMsg: err, email: req.body.email})
     })
 })
 
 app.post("/register", (req, res)=>{
+    console.log(req.body);
     data.userRegistration(req.body)
     .then(()=>{
         res.render("home", {successMessage: "User Created"})

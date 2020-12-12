@@ -1,9 +1,11 @@
 //use dotenv to include env variables .env
 const mongoose = require('mongoose'); 
+const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
 
 //setting the userSchema
 var userSchema = new Schema({
+    name: String,
     userName: {
         "type": String,
         "unique": true
@@ -51,6 +53,7 @@ module.exports.initialize = () => {
 
 
 module.exports.userRegistration = (userData) => {
+    console.log(userData);
     return new Promise ((resolve, reject) => {
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(userData.password, salt, (err, hash) => {
