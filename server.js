@@ -7,7 +7,7 @@ const exphbs = require("express-handlebars");
 var data = require("./models/user-data") //requiring all functions from data-service.js
 var clientSessions = require("client-sessions");
 //var multer = require("multer"); //deal with images
-//var bodyParser = require("body-parser"); //deal with forms
+var bodyParser = require("body-parser"); //deal with forms
 
 
 var app = express();
@@ -29,8 +29,13 @@ app.use(function(req, res, next) {
     next();
     });
 
+
+//set body parser
+app.use(bodyParser.urlencoded({ extended: true }))
+
 //helper middleware function to ensureLogin. if user is not logged in, redirect to the login page
 ensureLogin = (req, res, next) => {
+    console.log(req.session.user);
     if(!req.session.user){
         res.redirect("/login");
     }
@@ -46,7 +51,6 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs');
 
 app.use(express.static(path.join(__dirname, 'views'))); //set the views dir as static
-//app.use(bodyParser.urlencoded({ extended: true })); //setting bodyParser
 
 
 var HTTP_PORT = process.env.PORT || 8080;
@@ -65,26 +69,28 @@ app.get("/register", (req, res) => {
     res.render("register");
 })
 
-app.get("/menu", (req, res) => {
+app.get("/menu", ensureLogin, (req, res) => {
     res.render("menu");
+})
+
+app.get("/logout", (req, res) => l{
+    req.session.reset();
+    res.redirect("/");
 })
 
 
 
 // ** POST ROUTES ** 
 app.post("/login", (req, res)=> {
-    req.body.userAgent = req.get('User-Agent');
+    //req.body.userAgent = req.get('User-Agent');
+    console.log(req.body)
     data.checkUser(req.body)
-    .then((user)=>{
-        req.session.user = {
-            userName: user.userName,
-            email: user.email,
-            admin: user.admin
-        }
+    .then((userData)=>{
+        req.session.user = userData;
         res.redirect("/");
 
     }).catch((err)=>{
-        res.render("/", {errorMsg: err, email: req.body.email})
+        res.render("login", {errorMsg: err, email: req.body.email})
     })
 })
 

@@ -84,12 +84,21 @@ module.exports.userRegistration = (userData) => {
 
 module.exports.checkUser = (userData) => {
     return new Promise((resolve, reject)=> {
+        Users.find({email: userData.email}, ((err, info)=>{
+            if (err) throw err;
+
+            console.log(info);
+            
+        }))
         Users.find({email: userData.email})
-        .then((user) =>{
-            bcrypt.compare(userData.password, user[0].password)
+        .then((data) =>{
+            bcrypt.compare(userData.password, data[0].password)
             .then((res)=>{
                 if (res === true) {
-                        resolve(users[0]);
+                        resolve(data[0]);
+                }
+                else {
+                    reject("Incorrect Password!")
                 }
             }).catch((err)=>{
                 reject(`Unable to find user: ${userData.email}`);
