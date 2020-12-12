@@ -73,7 +73,7 @@ app.get("/menu", ensureLogin, (req, res) => {
     res.render("menu");
 })
 
-app.get("/logout", (req, res) => l{
+app.get("/logout", (req, res) => {
     req.session.reset();
     res.redirect("/");
 })
