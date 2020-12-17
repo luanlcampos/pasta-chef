@@ -1,6 +1,7 @@
 
 # Pasta Chef
-**Application is not finished yet** 
+**Application is not finished yet**   
+  
 What is missing:  
  - Form to include meals into database by system administrator
  - Creation of database for holding meals data
