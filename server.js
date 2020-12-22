@@ -6,7 +6,7 @@ var path = require("path");
 const exphbs = require("express-handlebars");
 var data = require("./models/user-data") //requiring all functions from data-service.js
 var clientSessions = require("client-sessions");
-//var multer = require("multer"); //deal with images
+var multer = require("multer"); //deal with images
 var bodyParser = require("body-parser"); //deal with forms
 
 
@@ -32,6 +32,15 @@ app.use(function(req, res, next) {
 
 //set body parser
 app.use(bodyParser.urlencoded({ extended: true }))
+
+//set multer storage
+const storage = multer.diskStorage({
+    destination: "/public/images/uploaded/meals",
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+});
+const upload = multer({ storage: storage });
 
 //helper middleware function to ensureLogin. if user is not logged in, redirect to the login page
 ensureLogin = (req, res, next) => {
