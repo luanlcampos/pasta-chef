@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 //set multer storage
 const storage = multer.diskStorage({
-    destination: "/public/images/uploaded/meals",
+    destination: "./public/images/uploaded/meals",
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname))
     }
