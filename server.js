@@ -78,30 +78,32 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 })
 
+app.get("/addMeal", (req,res) => {
+    res.render("addMeal");
+})
+
 
 
 // ** POST ROUTES ** 
 app.post("/login", (req, res)=> {
-    //req.body.userAgent = req.get('User-Agent');
-    console.log(req.body)
+    req.body.userAgent = req.get('User-Agent');
     data.checkUser(req.body)
     .then((userData)=>{
         req.session.user = userData;
         res.redirect("/");
 
     }).catch((err)=>{
-        res.render("login", {errorMsg: err, email: req.body.email})
+        res.render("home", {errorMsg: err, email: req.body.email})
     })
 })
 
 app.post("/register", (req, res)=>{
-    console.log(req.body);
     data.userRegistration(req.body)
     .then(()=>{
         res.render("home", {successMessage: "User Created"})
     })
     .catch((err)=>{
-        res.render("home", {errorMsg: err, email: req.body.email})
+        res.render("home", {regErrorMsg: err, email: req.body.email})
     })
 })
 
@@ -116,7 +118,3 @@ data.initialize()
     console.log(err);
 })
 
-
-// app.listen(HTTP_PORT, () => {
-//     console.log("Express http server listening on port http://localhost:" + HTTP_PORT)
-// })

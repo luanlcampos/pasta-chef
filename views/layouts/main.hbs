@@ -12,6 +12,8 @@
 </head>
 
 <body>
+    
+
     {{!-- setting navbar --}}
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-lignt">
         <a class="navbar-brand" href="/">
@@ -31,17 +33,15 @@
                     <a class="nav-link" href="/menu">On The Menu</a>
                 </li>
                 {{#if session.user.admin}}
-                <li class="nav-link">
-                    <a class="nav-link" href="/add">Add Menu <span class="sr-only"></span>
+                <li class="nav-item">
+                    <a class="nav-link" href="/addMeal">Add Menu </a>
                 </li>
                 {{/if}}
             </ul>
             {{#if session.user}}
             <form class="navbar-form navbar-right">
-                <a href="/dashboard"
-                    class="btn btn-outline-primary h-button"><span></span>&nbsp;&nbsp;Dashboard</a>
-                <a href="/logout" 
-                    class="btn btn-outline-primary h-button"><span
+                <a href="/dashboard" class="btn btn-outline-primary h-button"><span></span>&nbsp;&nbsp;Dashboard</a>
+                <a href="/logout" class="btn btn-outline-primary h-button"><span
                         class="glyphicon glyphicon-chevron-right"></span>&nbsp;&nbsp;Logout</a>
             </form>
             {{else}}
@@ -53,8 +53,8 @@
                         class="glyphicon glyphicon-chevron-right"></span>&nbsp;&nbsp;Log In</a>
             </form>
             {{/if}}
-            
-            
+
+
         </div>
 
     </nav>
@@ -149,7 +149,6 @@
     </footer>
     <!-- Footer -->
 
-
     <!-- Modal -->
     {{!-- Log in Modal --}}
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -169,6 +168,9 @@
                         {{#if errorMsg}}
                         <div class="alert alert-danger"> <strong>Error:</strong> {{errorMsg}}</div>
                         {{/if}}
+                        {{#if successMessage}}
+                        <div class="alert alert-success">  {{successMessage}}</div>
+                        {{/if}}
                         <form method="post" action="/login">
                             <div class="form-group">
                                 <input type="email" name="email" class="form-control" id="email"
@@ -179,7 +181,6 @@
                                     placeholder="Enter Your Password">
                             </div>
                             <input type="submit" class="btn btn-outline-secondary" value="LOG IN">
-                            {{!-- <button type="submit" class="btn btn-outline-secondary">LOG IN</button> --}}
                         </form>
 
 
@@ -200,6 +201,7 @@
         </div>
     </div>
 
+
     {{!-- Register Modal --}}
     <div class="modal fade" id="RegisterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -218,19 +220,20 @@
                     <div class="d-flex flex-column text-center">
                         <form action="/register" method="post">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="userName" id="userName" placeholder="Enter Your Username">
+                                <input type="text" class="form-control" name="userName" id="userName"
+                                    placeholder="Enter Your Username" required>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Enter Your Full Name">
+                                    placeholder="Enter Your Full Name" required>
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control" id="email" name="email" 
-                                    placeholder="Enter Your Email Address">
+                                <input type="email" class="form-control" id="email" name="email"
+                                    placeholder="Enter Your Email Address" required>
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" id="password" name="password"
-                                    placeholder="Enter Your Password">
+                                    placeholder="Enter Your Password" required>
                             </div>
                             <button type="submit" class="btn btn-outline-secondary">SIGN UP TODAY</button>
                         </form>
@@ -259,6 +262,28 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-
+    <script>
+        $(document).ready(function(){
+            if ("{{errorMsg}}") {
+                console.log("Calling Modal")
+                $("#loginModal").modal("show");
+            }
+        })
+    </script>
+    <script>
+        $(document).ready(function(){
+            if ("{{RegErrorMsg}}") {
+                console.log("Calling Modal")
+                $("#RegisterModal").modal("show");
+            }
+        })
+    </script>
+    <script>
+        $(document).ready(function(){
+            if ("{{successMessage}}") {
+                $("#loginModal").modal("show");
+            }
+        })
+    </script>
 
 </body>

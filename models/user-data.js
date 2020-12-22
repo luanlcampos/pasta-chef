@@ -85,10 +85,7 @@ module.exports.userRegistration = (userData) => {
 module.exports.checkUser = (userData) => {
     return new Promise((resolve, reject)=> {
         Users.find({email: userData.email}, ((err, info)=>{
-            if (err) throw err;
-
-            console.log(info);
-            
+            if (err) throw err;         
         }))
         Users.find({email: userData.email})
         .then((data) =>{
