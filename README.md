@@ -14,4 +14,4 @@ What is done:
  - MVC structure already defined
 
 Deployed with **Heroku**  
-Available at: [https://protected-wildwood-92195.herokuapp.com](https://protected-wildwood-92195.herokuapp.com)
+Available at: [https://pasta-chef.herokuapp.com/](https://pasta-chef.herokuapp.com/)
