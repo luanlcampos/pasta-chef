@@ -1,6 +1,8 @@
 //use dotenv to include env variables .env
 const mongoose = require('mongoose'); 
 const bcrypt = require('bcryptjs');
+const dotenv = require("dotenv");
+dotenv.config();
 const Schema = mongoose.Schema;
 
 //setting the userSchema
@@ -37,7 +39,8 @@ let Meals;
 
 module.exports.initialize = () => {
     return new Promise ((resolve, reject)=>{
-        let db = mongoose.createConnection("mongodb+srv://web322a6:web322a6@web322-a6.2zg0w.mongodb.net/pasta-chef?retryWrites=true&w=majority");
+        // let db = mongoose.createConnection("mongodb+srv://web322a6:web322a6@web322-a6.2zg0w.mongodb.net/pasta-chef?retryWrites=true&w=majority");
+        let db = mongoose.createConnection(process.env.MONGO_URI);
         db.on('error', (err) => {
             reject(err);  // reject the promise with the provided error
         });
@@ -105,24 +108,17 @@ module.exports.checkUser = (userData) => {
     })
 })}
 
-// module.exports.testData = () => {
-//     return new Promise ((resolve, reject)=>{
-//         var testUser = new Users ({
-//             username: "llima-campos",
-//             password: "12345678",
-//             email: "luan@email.com",
-//             admin: true
-//         });
-        
-//         testUser.save((err)=>{
-//             if(err){
-//                 reject(err);
-//             }
-//             else {
-//                 resolve("Data added");
-//             }
-//         })
-//     })
-// }
+module.exports.addMeal = (mealData) => {
+    return new Promise ((resolve, reject) => {
+        let newMeal = new Meals(mealData);
+        newMeal.save()
+        .then(()=>{
+            resolve("Meal Added");
+        })
+        .catch((err)=>{
+            reject(("There was an error creating this meal."))
+        })
+    })
+}
 
 
