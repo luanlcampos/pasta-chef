@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    
+
 
     {{!-- setting navbar --}}
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-lignt">
@@ -40,9 +40,17 @@
             </ul>
             {{#if session.user}}
             <form class="navbar-form navbar-right">
-                <a href="/dashboard" class="btn btn-outline-primary h-button"><span></span>&nbsp;&nbsp;Dashboard</a>
-                <a href="/logout" class="btn btn-outline-primary h-button"><span
-                        class="glyphicon glyphicon-chevron-right"></span>&nbsp;&nbsp;Logout</a>
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Hello,&nbsp;{{session.user.userName}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                        <a class="dropdown-item" href="/profile">Profile</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+                </div>
             </form>
             {{else}}
             <form class="navbar-form navbar-right">
@@ -169,7 +177,7 @@
                         <div class="alert alert-danger"> <strong>Error:</strong> {{errorMsg}}</div>
                         {{/if}}
                         {{#if successMessage}}
-                        <div class="alert alert-success">  {{successMessage}}</div>
+                        <div class="alert alert-success"> {{successMessage}}</div>
                         {{/if}}
                         <form method="post" action="/login">
                             <div class="form-group">
@@ -263,7 +271,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             if ("{{errorMsg}}") {
                 console.log("Calling Modal")
                 $("#loginModal").modal("show");
@@ -271,7 +279,7 @@
         })
     </script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             if ("{{RegErrorMsg}}") {
                 console.log("Calling Modal")
                 $("#RegisterModal").modal("show");
@@ -279,7 +287,7 @@
         })
     </script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             if ("{{successMessage}}") {
                 $("#loginModal").modal("show");
             }

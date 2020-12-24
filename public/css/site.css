@@ -73,6 +73,40 @@ html body {
     color: #FFF;
 }
 
+
+.dropdown-menu {
+    background-color: #266150;
+    margin-right: 5px;
+    border-color: none;
+
+}
+
+.show > .btn-outline-primary.dropdown-toggle {
+    background-color: #266150;
+    margin-right: 5px;
+    border-color: #266150;
+    
+}
+.show > .btn-outline-primary.dropdown-toggle:focus {
+    border: none !important;
+}
+
+.dropdown-item {
+    color: #fff;
+    font-weight: bold;
+}
+
+.dropdown-item:hover {
+    background-color: #4F4846;
+}
+
+#dropdownMenuButton:focus {
+    background-color: #266150;
+    border: none !important;
+}
+
+
+
 .btn-outline-primary:hover {
     background-color:#266150;
     border: 1px solid white;
