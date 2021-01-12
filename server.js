@@ -46,7 +46,8 @@ const upload = multer({ storage: storage });
 ensureLogin = (req, res, next) => {
     console.log(req.session.user);
     if(!req.session.user){
-        res.redirect("/login");
+        //res.redirect("/", {errorMsg: "You should be logged in!"});
+        res.render("home", {errorMsg: "You should be logged in!"});
     }
     else {
         next();
@@ -78,8 +79,14 @@ app.get("/register", (req, res) => {
     res.render("register");
 })
 
-app.get("/menu", ensureLogin, (req, res) => {
-    res.render("menu");
+app.get("/menu", (req, res) => {
+    data.getMeals()
+    .then((meals) => {
+        res.render("menu", {meals: meals})
+    })
+    .catch ((err) => {
+        res.status(404).render("menu");
+    })
 })
 
 app.get("/logout", (req, res) => {
@@ -87,10 +94,19 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 })
 
-app.get("/addMeal", (req,res) => {
-    res.render("addMeal");
-})
+// app.get("/addMeal", (req,res) => {
+//     res.render("addMeal");
+// })
 
+app.get("/menu/delete/:mealId", ensureLogin, (req, res) => {
+    data.deleteMealById(req.params.mealId)
+    .then(() => {
+        res.redirect("/menu");
+    })
+    .catch((err) => {
+        res.status(500).send("Unable to remove meal / Meal not found!")
+    })
+})
 
 
 // ** POST ROUTES ** 
@@ -113,6 +129,19 @@ app.post("/register", (req, res)=>{
     })
     .catch((err)=>{
         res.render("home", {regErrorMsg: err, email: req.body.email})
+    })
+})
+
+app.post("/addMeal", upload.single("imageFile"), (req, res) => {
+    var imgName = req.file.filename;
+    console.log(imgName);
+    data.addMeal(req.body, req.file.filename)
+    .then(() => {
+        // res.render("menu", {mealMsg: "Meal Added!"})
+        res.redirect("/menu")
+    })
+    .catch((err) => {
+        res.render("menu", {mealMsgErr: err});
     })
 })
 

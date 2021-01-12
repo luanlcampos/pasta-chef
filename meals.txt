@@ -1,5 +1,17 @@
-Carbonara
+Pasta Carbonara
+	Spaghetti, Pancetta, Eggs, Garlic, Parmesan, Pecorino Cheese, Unsalted Butter,  Salt and Black Pepper
+	Carbonara is an Italian pasta dish from Rome made with egg, hard cheese, cured pork, and black pepper
+	15
+	45
+	600
+	Top mealS
+	
 Pesto
+	Spaghetti, Parmensan, Olive Oil, Onion, Pesto, Salt and Black Pepper
+	True pesto is made from fresh basil, garlic, olive oil, pine nuts, and cheese pounded together into a thick, green paste.
+	13
+	30
+	550
 A la vodka
 Gnocchi
 Lasagna

@@ -108,9 +108,11 @@ module.exports.checkUser = (userData) => {
     })
 })}
 
-module.exports.addMeal = (mealData) => {
+module.exports.addMeal = (mealData, imageTitle) => {
     return new Promise ((resolve, reject) => {
         let newMeal = new Meals(mealData);
+        newMeal.image = imageTitle;
+        newMeal.topMeal = mealData.topMeal ? true:false; 
         newMeal.save()
         .then(()=>{
             resolve("Meal Added");
@@ -121,4 +123,32 @@ module.exports.addMeal = (mealData) => {
     })
 }
 
+module.exports.getMeals = () => {
+    return new Promise ((resolve, reject) => {
+        Meals.find({})
+        .exec()
+        .then((meals)=> {
+            //meals = meals.map(value => value.dataValues);
+            meals = meals.map(value => value.toObject());
+            console.log("getmeals success")
+            console.log(meals)
+            resolve(meals);
+        })
+        .catch((err)=> {
+            reject("No results found")
+        })
+    })
+}
 
+module.exports.deleteMealById = (mealId) => {
+    return new Promise ((resolve, reject) => {
+        Meals.deleteOne({_id: mealId})
+        .exec()
+        .then(()=> {
+            resolve ("Meal Removed")
+        })
+        .catch((err) => {
+            reject(err + ": Unable to delete  meal")
+        })
+    })
+}

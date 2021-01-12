@@ -165,6 +165,14 @@ html body {
       height: fit-content;
   }
 
+  .row.display-flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .row.display-flex > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+  }
 
   .meal {
       background-color: white;
@@ -184,6 +192,12 @@ html body {
       font-size: large;
       font-weight: bold;
       margin-bottom: 0px;
+  }
+
+  .food-img {
+    width:  100%;
+    max-height: 330px;
+    object-fit: cover;
   }
 
 
